@@ -1,0 +1,9 @@
+---
+consumer_key:       oMU5kOPVvKTf4aMHrlrg
+consumer_secret:    4gRVEZdm6bV3vutBEMBbMIAFQwXCaowWukfHSShcA
+provider_site:      https://api.twitter.com
+request_token_url:  https://api.twitter.com/oauth/request_token
+authorize_url:      https://api.twitter.com/oauth/authorize
+access_token_url:   https://api.twitter.com/oauth/access_token
+callback_url:       http://0.0.0.0:4180/authenticate
+
