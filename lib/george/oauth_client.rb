@@ -48,10 +48,8 @@ class George
       @access_token = @request_token.get_access_token(:oauth_verifier => params['oauth_verifier'])
 
       @oauth_credentials = {
-        :consumer_key       => @config.consumer_key,
-        :consumer_secret    => @config.consumer_secret,
-        :oauth_token        => @access_token.token,
-        :oauth_token_secret => @access_token.secret
+        'token'  => @access_token.token,
+        'secret' => @access_token.secret
       }
 
       [200, {'Content-Type' => 'text/html'}, [RESPONSE_BODY]]
@@ -69,8 +67,8 @@ class George
     end
 
     def launch_browser(url)
-      os  = RbConfig::CONFIG['host_os']
-      key = DEFAULT_COMMANDS.keys.find { |key| os =~ key }
+      os   = RbConfig::CONFIG['host_os']
+      key  = DEFAULT_COMMANDS.keys.find { |key| os =~ key }
       argv = DEFAULT_COMMANDS[key] + [url]
 
       @browser = ChildProcess.build(*argv)
