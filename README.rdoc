@@ -12,7 +12,7 @@ George is your helpful tea maker, gem installer and vim tutor.
 
 == License
 
-Copyright (c) 2013 James Coglan, Mazz Mosley
+Copyright (c) 2013 /dev/fort Cohort 7
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the 'Software'), to deal in

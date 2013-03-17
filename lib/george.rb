@@ -1,3 +1,4 @@
+require 'base64'
 require 'childprocess'
 require 'erb'
 require 'json'
