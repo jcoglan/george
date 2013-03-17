@@ -5,18 +5,19 @@ require 'oauth'
 require 'rack'
 require 'twitter'
 require 'webrick'
+require 'yaml'
 
 class George
-  ROOT = File.expand_path('..', __FILE__)
+  ROOT          = File.expand_path('..', __FILE__)
+  CONFIG_PATH   = File.expand_path('../../config/twitter.yml', __FILE__)
+  TEMPLATE_PATH = File.expand_path('../../templates', __FILE__)
 
   CALLBACK_PATH = '/authenticate'
   COMMANDS      = %w[install make]
-  CONFIG_PATH   = ROOT + '/../config/twitter.yml'
   DEFAULT_PORT  = 4180
   DOTFILE_PATH  = File.expand_path('~/.georgerc')
 
   autoload :Config,      ROOT + '/george/config'
-  autoload :Make  ,      ROOT + '/george/make'
   autoload :OAuthClient, ROOT + '/george/oauth_client'
 
   def self.run(argv)
@@ -29,10 +30,6 @@ class George
 
   def run(argv)
     command = argv.first
-    unless COMMANDS.include?(command)
-      $stderr.puts "Not a valid command: #{command}"
-      exit 1
-    end
     __send__(command, *argv[1..-1])
     exit 0
   rescue => e
@@ -47,9 +44,25 @@ class George
     File.open(DOTFILE_PATH, 'w') { |f| f.write(JSON.dump(credentials)) }
   end
 
-  def make(beverage)
-    tweet = "@#{twitter_username} #{Make.message(beverage)}"
-    twitter.update(tweet)
+  def method_missing(name, *args)
+    template_path = File.join(TEMPLATE_PATH, "#{name}.yml")
+    raise "Not a valid command: `george #{name}`" unless File.file?(template_path)
+
+    templates = YAML.load_file(template_path)
+    thing     = args.first
+    messages  = (templates['custom'][thing] || []) + templates['generic']
+    template  = messages[rand(messages.size)]
+    message   = ERB.new(template).result(binding)
+
+    post_to_twitter("@#{twitter_username} #{message}")
+  end
+
+  def post_to_twitter(tweet)
+    if ENV['DEBUG']
+      puts tweet
+    else
+      twitter.update(tweet)
+    end
   end
 
   def twitter

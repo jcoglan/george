@@ -1,0 +1,14 @@
+---
+generic:
+  - Help, George, I don't understand <%= thing %>.
+  - Help me, George, you're my only hope.
+  - I need some emergency leftover <%= thing %>.
+
+custom:
+  code:
+    - What does this JavaScripts do?
+    - Can you send me the Nokogiri gem?
+    - What's that? Variadic Ruby methods cause stack overflows? Cool story, bro.
+  vim:
+    - I just entered normal mode.
+

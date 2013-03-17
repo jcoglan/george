@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.require_paths     = %w[lib]
   s.executables       = %w[george]
 
-  s.files = %w[README.rdoc] + Dir.glob("{bin,config,lib}/**/*")
+  s.files = %w[README.rdoc] + Dir.glob("{bin,config,lib,templates}/**/*")
 
   s.add_dependency "childprocess", "~> 0.3.0"
   s.add_dependency "oauth", "~> 0.4.0"
