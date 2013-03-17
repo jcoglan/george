@@ -1,0 +1,8 @@
+---
+generic:
+  - George, can you send me the <%= thing %>.gem file, please?
+
+custom:
+  rails:
+    - "SystemStackError due to #lol_ruby"
+

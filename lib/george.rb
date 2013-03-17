@@ -62,6 +62,10 @@ class George
     File.unlink(SCRATCH_PATH)
   end
 
+  Dir.entries(TEMPLATE_PATH).grep(/\.yml$/).each do |n|
+    undef_method File.basename(n, '.yml') rescue nil
+  end
+
   def method_missing(name, *args)
     template_path = File.join(TEMPLATE_PATH, "#{name}.yml")
     raise "Not a valid command: `george #{name}`" unless File.file?(template_path)
