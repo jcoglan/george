@@ -8,17 +8,19 @@ require 'webrick'
 require 'yaml'
 
 class George
-  ROOT          = File.expand_path('..', __FILE__)
+  LIB           = File.expand_path('..', __FILE__)
   CONFIG_PATH   = File.expand_path('../../config/twitter.yml', __FILE__)
+  ANNA_VIM      = File.expand_path('../../config/anna.vim', __FILE__)
   TEMPLATE_PATH = File.expand_path('../../templates', __FILE__)
 
   CALLBACK_PATH = '/authenticate'
   COMMANDS      = %w[install make]
   DEFAULT_PORT  = 4180
   DOTFILE_PATH  = File.expand_path('~/.georgerc')
+  SCRATCH_PATH  = File.expand_path('~/.GEORGE_TWEET')
 
-  autoload :Config,      ROOT + '/george/config'
-  autoload :OAuthClient, ROOT + '/george/oauth_client'
+  autoload :Config,      LIB + '/george/config'
+  autoload :OAuthClient, LIB + '/george/oauth_client'
 
   def self.run(argv)
     new.run(argv)
@@ -37,11 +39,26 @@ class George
     exit 1
   end
 
-  def install
+  def install(*args)
     client = OAuthClient.new(config)
     client.boot
     credentials = client.get_oauth_credentials
     File.open(DOTFILE_PATH, 'w') { |f| f.write(JSON.dump(credentials)) }
+  end
+
+  def vim(*args)
+    File.open(SCRATCH_PATH, 'w') do |f|
+      f.write "# Compose your tweet in George's favourite editor!\n"
+    end
+    vim = ChildProcess.build('vim', '-u', ANNA_VIM, SCRATCH_PATH)
+    vim.io.inherit!
+    vim.start
+    sleep 0.01 until vim.exited?
+    message = File.read(SCRATCH_PATH).split("\n").delete_if { |l| l =~ /^\s*#/ }.join("\n")
+
+    post_to_twitter(message)
+  ensure
+    File.unlink(SCRATCH_PATH)
   end
 
   def method_missing(name, *args)
@@ -54,10 +71,13 @@ class George
     template  = messages[rand(messages.size)]
     message   = ERB.new(template).result(binding)
 
-    post_to_twitter("@#{twitter_username} #{message}")
+    post_to_twitter(message)
   end
 
-  def post_to_twitter(tweet)
+  def post_to_twitter(message)
+    message.strip!
+    return if message == ''
+    tweet = "@#{twitter_username} #{message}"
     if ENV['DEBUG']
       puts tweet
     else
