@@ -3,11 +3,15 @@ generic:
   - George. George. George. George. George. George. George. George. George. George.
   - Please may I have some <%= thing %>?
   - Isn't it time you had some <%= thing %>?
+  - Thanks George! Thorge.
+  - Something something <%== thing %>.
 
 custom:
   tea:
     - Are you putting the kettle on? I'd love one.
     - You wouldn't want the world to discover your EVIL ALIEN IDENTITY NOW, RIGHT?
+    - Milk and no sugar for me, please.
+    - It's two pots, one George!
   supertrain:
     - George, it's time. Get your bag. Supertrain is here.
 
