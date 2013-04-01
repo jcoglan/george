@@ -1,3 +1,4 @@
+require 'childprocess'
 require 'erb'
 require 'json'
 require 'twitter'

@@ -1,5 +1,4 @@
 require 'base64'
-require 'childprocess'
 require 'oauth'
 require 'rack'
 require 'webrick'
