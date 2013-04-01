@@ -6,6 +6,7 @@ generic:
   - Can you help me fix my own stupidity?
   - Oops.
   - TO THE WHITEBOARD!
+  - Hey, I just met you, and this is crazy, but here's my number, could you help me with <%= thing %>, maybe?
 
 custom:
   code:
