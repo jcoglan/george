@@ -1,3 +1,9 @@
+require 'base64'
+require 'childprocess'
+require 'oauth'
+require 'rack'
+require 'webrick'
+
 class George
   class OAuthClient
 
@@ -7,7 +13,7 @@ class George
       /(linux|bsd|aix|solaris)/i      => ['xdg-open']
     }
 
-    GIF_PATH  = File.join(TEMPLATE_PATH, 'thumbsup.gif')
+    GIF_PATH = File.join(TEMPLATE_PATH, 'thumbsup.gif')
 
     RESPONSE_BODY = <<-HTML
 <!doctype html>
@@ -105,14 +111,6 @@ class George
       }
 
       [200, {'Content-Type' => 'text/html'}, [RESPONSE_BODY]]
-    end
-
-    def thumbs_up_data_uri
-      @thumbs_up_data_uri ||= begin
-        image = File.read(GIF_PATH)
-        base64 = Base64.encode64(image).gsub(/[\s\n\r\t]/, '')
-        "data:image/gif;base64,#{base64}"
-      end
     end
 
   end
