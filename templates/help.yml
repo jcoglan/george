@@ -1,11 +1,13 @@
 ---
 generic:
   - Help, George, I don't understand <%= thing %>.
+  - Can you pair with me on <%= thing %>?
   - Help me, George, you're my only hope.
   - I need some emergency leftover <%= thing %>.
   - Can you help me fix my own stupidity?
   - Oops.
   - TO THE WHITEBOARD!
+  - Coax me back, George.
 
 custom:
   code:
