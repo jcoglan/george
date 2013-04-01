@@ -1,27 +1,23 @@
-require 'base64'
 require 'childprocess'
 require 'erb'
 require 'json'
-require 'oauth'
-require 'rack'
 require 'twitter'
-require 'webrick'
 require 'yaml'
 
 class George
-  LIB           = File.expand_path('..', __FILE__)
-  CONFIG_PATH   = File.expand_path('../../config/twitter.yml', __FILE__)
-  ANNA_VIM      = File.expand_path('../../config/anna.vim', __FILE__)
-  TEMPLATE_PATH = File.expand_path('../../templates', __FILE__)
+  ROOT          = File.expand_path('../..', __FILE__)
+  LIB           = ROOT + '/lib/george'
+  CONFIG_PATH   = ROOT + '/config/twitter.yml'
+  ANNA_VIM      = ROOT + '/config/anna.vim'
+  TEMPLATE_PATH = ROOT + '/templates'
 
   CALLBACK_PATH = '/authenticate'
-  COMMANDS      = %w[install make]
   DEFAULT_PORT  = 4180
   DOTFILE_PATH  = File.expand_path('~/.georgerc')
   SCRATCH_PATH  = File.expand_path('~/.GEORGE_TWEET')
 
-  autoload :Config,      LIB + '/george/config'
-  autoload :OAuthClient, LIB + '/george/oauth_client'
+  autoload :Config,      LIB + '/config'
+  autoload :OAuthClient, LIB + '/oauth_client'
 
   def self.run(argv)
     new.run(argv)

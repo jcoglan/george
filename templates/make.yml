@@ -4,6 +4,8 @@ generic:
   - Please may I have some <%= thing %>?
   - Isn't it time you had some <%= thing %>?
   - git fetch george
+  - Thanks George! Thorge.
+  - Something something <%= thing %>.
 
 custom:
   tea:
@@ -11,5 +13,7 @@ custom:
     - You wouldn't want the world to discover your EVIL ALIEN IDENTITY NOW, RIGHT?
     - Is that "Fifty Shades of Earl Grey" you're reading?
     - It's hard to look right at you baby, but here's my number, so could you make some tea please, maybe?
+    - Milk and no sugar for me, please.
+    - It's two pots, one George!
   supertrain:
     - George, it's time. Get your bag. Supertrain is here.

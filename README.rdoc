@@ -1,13 +1,31 @@
-= george
+= +george+
 
-George is your helpful tea maker, gem installer and vim tutor.
+George is your helpful tea maker, gem installer and vim tutor. +george+ is a
+command-line program for sending tweets to George.
 
 
 == Usage
 
+Install +george+ and authorize it to post to Twitter. This pops up the Twitter
+auth flow in your browser.
+
     gem install george
     george install
+
+Then send tweets to George! Commands are of the form:
+
+    george COMMAND ARGUMENT
+
+For example:
+
     george make tea
+    george help django
+    george judge whisky
+    george gem mirror
+
+You can also use George's favourite editor to compose your own tweet:
+
+    george vim
 
 
 == License
